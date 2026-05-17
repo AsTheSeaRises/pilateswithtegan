@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilates with Tegan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,500;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --teal: #1B6B5A;
+            --teal-dark: #155448;
+            --gold: #C4973A;
+            --gold-light: #D4A84A;
+            --cream: #F0EBE0;
+            --divider: #C8BEA8;
+        }
+
+        body {
+            background-color: var(--cream);
+            font-family: 'Lato', sans-serif;
+            color: var(--teal);
+        }
+
+        /* Gradient borders */
+        .top-border {
+            height: 5px;
+            background: linear-gradient(to right, var(--teal) 0%, var(--gold) 40%, var(--gold-light) 60%, var(--teal) 100%);
+        }
+
+        .bottom-border {
+            height: 5px;
+            background: linear-gradient(to right, var(--gold) 0%, var(--teal) 40%, var(--teal) 60%, var(--gold) 100%);
+        }
+
+        /* Ornamental divider */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--divider);
+            font-size: 13px;
+            padding: 12px 0;
+        }
+
+        .ornament-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--divider);
+        }
+
+        .ornament-line::before,
+        .ornament-line::after {
+            content: '';
+            display: inline-block;
+            height: 1px;
+            background: var(--divider);
+        }
+
+        .ornament .left-line::before { width: 60px; }
+        .ornament .left-line::after  { content: ''; display: none; }
+        .ornament .right-line::after { width: 60px; }
+        .ornament .right-line::before { content: ''; display: none; }
+
+        .ornament-cross {
+            font-size: 16px;
+            color: var(--divider);
+            line-height: 1;
+        }
+
+        /* Layout */
+        .page-inner {
+            display: grid;
+            grid-template-columns: 1fr 1px 2fr;
+            min-height: calc(100vh - 90px);
+        }
+
+        /* Left panel */
+        .left-panel {
+            padding: 32px 44px 32px 52px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 28px;
+        }
+
+        .brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 76px;
+            color: var(--teal);
+            line-height: 0.95;
+            letter-spacing: -1px;
+        }
+
+        .brand h2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 44px;
+            color: var(--teal);
+            line-height: 1.3;
+        }
+
+        .tagline {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--teal);
+            font-weight: 400;
+        }
+
+        .pricing-box {
+            background-color: var(--teal);
+            border-radius: 12px;
+            padding: 24px 28px;
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .price-col {
+            text-align: center;
+        }
+
+        .price-amount {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 46px;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+
+        .price-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+            font-weight: 300;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .price-vdivider {
+            width: 1px;
+            height: 56px;
+            background: rgba(255,255,255,0.3);
+            justify-self: center;
+        }
+
+        .save-badge {
+            display: inline-block;
+            background-color: var(--gold-light);
+            color: var(--teal-dark);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        /* Vertical divider */
+        .v-divider {
+            background-color: #C8BEA8;
+            width: 1px;
+        }
+
+        /* Right panel */
+        .right-panel {
+            padding: 32px 52px 32px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .schedule-card {
+            border: 1.5px solid var(--teal);
+            border-radius: 12px;
+            padding: 28px 18px 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .card-top-bar {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 38px;
+            height: 4px;
+            background-color: var(--gold);
+            border-radius: 0 0 3px 3px;
+        }
+
+        .day-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--teal);
+        }
+
+        .class-entry {
+            line-height: 1.35;
+        }
+
+        .class-time {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--teal);
+        }
+
+        .class-type {
+            font-size: 14px;
+            color: var(--teal);
+            font-weight: 400;
+        }
+
+        .card-divider {
+            width: 28px;
+            height: 3px;
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .location {
+            font-weight: 700;
+            color: var(--teal);
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        /* Section separator */
+        .h-divider {
+            border: none;
+            border-top: 1px solid var(--divider);
+            margin: 0 52px;
+        }
+
+        /* Contact section */
+        .contact-section {
+            padding: 28px 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 56px;
+            flex-wrap: wrap;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: var(--teal);
+            font-weight: 400;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-icon {
+            width: 46px;
+            height: 46px;
+            background-color: #DDD8CE;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--teal);
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .contact-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--teal);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .page-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .v-divider {
+                width: auto;
+                height: 1px;
+                margin: 0 32px;
+            }
+
+            .left-panel,
+            .right-panel {
+                padding: 32px;
+            }
+
+            .brand h1 { font-size: 56px; }
+            .brand h2 { font-size: 34px; }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+
+            .contact-section {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 28px 32px;
+            }
+
+            .h-divider { margin: 0 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="page-inner">
+
+        <!-- LEFT: Branding + Pricing -->
+        <div class="left-panel">
+
+            <div class="ornament">
+                <span class="ornament-line left-line">&#8592;&#9670;</span>
+                <span style="display:flex;gap:3px;color:var(--divider)">&#9670;&nbsp;<span class="ornament-cross">&#10022;</span>&nbsp;&#9670;</span>
+                <span class="ornament-line right-line">&#9670;&#8594;</span>
+            </div>
+
+            <div class="brand">
+                <h1>Pilates</h1>
+                <h2>with Tegan</h2>
+            </div>
+
+            <p class="tagline">Classes for all abilities</p>
+
+            <div class="pricing-box">
+                <div class="price-col">
+                    <span class="price-amount">£10</span>
+                    <span class="price-label">Per class</span>
+                </div>
+                <div class="price-vdivider"></div>
+                <div class="price-col">
+                    <span class="price-amount">£50</span>
+                    <span class="price-label">6 class<br>bundle</span>
+                    <span class="save-badge">SAVE £10</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="v-divider"></div>
+
+        <!-- RIGHT: Schedule -->
+        <div class="right-panel">
+
+            <div class="ornament">
+                <span class="ornament-line left-line">&#8592;&#9670;</span>
+                <span style="display:flex;gap:3px;color:var(--divider)">&#9670;&nbsp;<span class="ornament-cross">&#10022;</span>&nbsp;&#9670;</span>
+                <span class="ornament-line right-line">&#9670;&#8594;</span>
+            </div>
+
+            <div class="schedule-grid">
+
+                <!-- Monday -->
+                <div class="schedule-card">
+                    <div class="card-top-bar"></div>
+                    <div class="day-name">Monday</div>
+                    <div class="class-entry">
+                        <div class="class-time">9:30</div>
+                        <div class="class-type">Intermediate</div>
+                    </div>
+                    <div class="class-entry">
+                        <div class="class-time">10:30</div>
+                        <div class="class-type">Gentle<br>Pilates</div>
+                    </div>
+                    <div class="card-divider"></div>
+                    <div class="location">Froyle Village<br>Hall</div>
+                </div>
+
+                <!-- Wednesday -->
+                <div class="schedule-card">
+                    <div class="card-top-bar"></div>
+                    <div class="day-name">Wednesday</div>
+                    <div class="class-entry">
+                        <div class="class-time">19:00</div>
+                        <div class="class-type">Mixed ability<br>class</div>
+                    </div>
+                    <div class="card-divider"></div>
+                    <div class="location">Bentley<br>Primary School</div>
+                </div>
+
+                <!-- Friday -->
+                <div class="schedule-card">
+                    <div class="card-top-bar"></div>
+                    <div class="day-name">Friday</div>
+                    <div class="class-entry">
+                        <div class="class-time">9:15</div>
+                        <div class="class-type">Mixed ability<br>class</div>
+                    </div>
+                    <div class="card-divider"></div>
+                    <div class="location">Wickham Institute<br>Binsted</div>
+                </div>
+
+            </div>
+
+            <div class="ornament" style="padding-top: 20px;">
+                <span class="ornament-line left-line">&#8592;&#9670;</span>
+                <span style="display:flex;gap:3px;color:var(--divider)">&#9670;&nbsp;<span class="ornament-cross">&#10022;</span>&nbsp;&#9670;</span>
+                <span class="ornament-line right-line">&#9670;&#8594;</span>
+            </div>
+
+        </div>
+    </div>
+
+    <hr class="h-divider">
+
+    <!-- Contact -->
+    <div class="contact-section">
+        <span class="contact-label">Get in touch</span>
+
+        <div class="contact-item">
+            <div class="contact-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+                </svg>
+            </div>
+            <span class="contact-value">07761209998</span>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon">
+                <svg viewBox="0 0 24 24">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <polyline points="2,4 12,13 22,4"/>
+                </svg>
+            </div>
+            <span class="contact-value">teganhansensa@gmail.com</span>
+        </div>
+    </div>
+
+    <div class="bottom-border"></div>
+
+</body>
+</html>
