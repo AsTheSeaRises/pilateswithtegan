@@ -127,6 +127,42 @@
             grid-template-columns: 1fr 1px 1fr;
             align-items: center;
             gap: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -18px rgba(27, 107, 90, 0.55);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        box-shadow 0.4s ease;
+        }
+
+        .pricing-box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -75%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(120deg, transparent, rgba(212, 168, 74, 0.18), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.9s ease;
+            pointer-events: none;
+        }
+
+        .pricing-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px -20px rgba(27, 107, 90, 0.7);
+        }
+
+        .pricing-box:hover::after {
+            left: 125%;
+        }
+
+        .save-badge {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .pricing-box:hover .save-badge {
+            transform: scale(1.08);
+            background-color: #E6BE5E;
         }
 
         .price-col {
@@ -170,6 +206,7 @@
             padding: 5px 14px;
             border-radius: 20px;
             margin-top: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         /* Vertical divider */
@@ -203,6 +240,46 @@
             align-items: center;
             gap: 12px;
             position: relative;
+            background-color: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        box-shadow 0.35s ease,
+                        background-color 0.35s ease,
+                        border-color 0.35s ease;
+            will-change: transform;
+        }
+
+        .schedule-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(196, 151, 58, 0.08), rgba(27, 107, 90, 0.05));
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 18px 40px -18px rgba(27, 107, 90, 0.45),
+                        0 8px 16px -10px rgba(196, 151, 58, 0.35);
+            background-color: rgba(255, 255, 255, 0.55);
+            border-color: var(--gold);
+            z-index: 2;
+        }
+
+        .schedule-card:hover::before {
+            opacity: 1;
+        }
+
+        .schedule-card:hover .card-top-bar {
+            width: 56px;
+            background-color: var(--gold-light);
+        }
+
+        .schedule-card:hover .card-divider {
+            width: 44px;
         }
 
         .card-top-bar {
@@ -214,6 +291,7 @@
             height: 4px;
             background-color: var(--gold);
             border-radius: 0 0 3px 3px;
+            transition: width 0.35s ease, background-color 0.35s ease;
         }
 
         .day-name {
@@ -244,6 +322,7 @@
             height: 3px;
             background-color: var(--gold);
             border-radius: 2px;
+            transition: width 0.35s ease;
         }
 
         .location {
@@ -282,6 +361,21 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .contact-item:hover .contact-icon {
+            background-color: var(--gold-light);
+            transform: rotate(-6deg) scale(1.08);
+        }
+
+        .contact-item:hover .contact-icon svg {
+            stroke: var(--teal-dark);
         }
 
         .contact-icon {
@@ -293,6 +387,11 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-icon svg {
+            transition: stroke 0.3s ease;
         }
 
         .contact-icon svg {
@@ -309,6 +408,33 @@
             font-size: 18px;
             font-weight: 700;
             color: var(--teal);
+        }
+
+        /* Entrance animation */
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .schedule-card {
+            animation: riseIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+        .schedule-card:nth-child(1) { animation-delay: 0.05s; }
+        .schedule-card:nth-child(2) { animation-delay: 0.18s; }
+        .schedule-card:nth-child(3) { animation-delay: 0.31s; }
+
+        .brand, .pricing-box, .tagline {
+            animation: riseIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+        .brand { animation-delay: 0.05s; }
+        .tagline { animation-delay: 0.15s; }
+        .pricing-box { animation-delay: 0.25s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
         }
 
         /* Responsive */
